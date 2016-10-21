@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>Voting Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+<!--        <script type="text/javascript">
+        
+           
+           
+    
+        function update()
+        {
+            if (window.XMLHttpRequest) {
+              // code for modern browsers
+              xmlhttp = new XMLHttpRequest();
+            } else {
+              // code for old IE browsers
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            
+            httpRequest.onreadystatechange = responseHandler;
+            xmlhttp.open("GET", "/AjaxContentServlet", true);
+            
+            
+            
+            xmlhttp.send();
+            document.getElementByID("myDiv").innerHTML=xmlhttp.responseText;
+        }
+        
+        
+        function responseHandler() {
+           if (httpRequest.readyState == 4) {
+              if (httpRequest.status == 200) {
+                 var line = httpRequest.responseText;
+                     alert(line);
+               }
+            }
+        }
+        
+        </script>-->
+
+    <script type="text/javascript">
+function GetXmlHttpObject()
+{
+  if (window.XMLHttpRequest)
+  {
+    return new XMLHttpRequest();
+  }
+  if (window.ActiveXObject)
+  {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+  } 
+  return null;
+}
+
+function ajax_function(url, postData, id)
+{
+xmlhttp=GetXmlHttpObject();
+xmlhttp.open("POST", url, true);
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.setRequestHeader("Content-length", postData.length);
+xmlhttp.setRequestHeader("Connection", "close");
+xmlhttp.onreadystatechange=function()
+{
+    if(xmlhttp.readyState==4)
+    {
+          document.getElementById(id).innerHTML=xmlhttp.responseText;                            
+    }       
+}                
+    xmlhttp.send(postData);
+ }
+
+ function refreshDiv()
+ {
+var params = '';
+var DivId  = 'wrap';
+    var url    = 'AjaxContentServlet';
+
+ajax_function(url, params, DivId);
+ }
+ </script>
+    </head>
+    <body>
+        <div>
+            <a href="DBAccessServlet">See voting results</a><br/><br/>
+        </div>
+
+        <input type="button" value="My votes" id="votebutton" onkeyup="refreshDiv();">
+        <div id="myDiv">
+
+        </div>
+    </body>
+</html>
