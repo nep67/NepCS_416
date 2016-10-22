@@ -47,20 +47,11 @@ and open the template in the editor.
         }
         
         </script>-->
-
-    <script type="text/javascript">
-function GetXmlHttpObject()
-{
-  if (window.XMLHttpRequest)
-  {
-    return new XMLHttpRequest();
-  }
-  if (window.ActiveXObject)
-  {
-    return new ActiveXObject("Microsoft.XMLHTTP");
-  } 
-  return null;
-}
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+       
+          
+ <script type="text/javascript">
+    
 
 function ajax_function(url, postData, id)
 {
@@ -79,22 +70,14 @@ xmlhttp.onreadystatechange=function()
     xmlhttp.send(postData);
  }
 
- function refreshDiv()
- {
-var params = '';
-var DivId  = 'wrap';
-    var url    = 'AjaxContentServlet';
-
-ajax_function(url, params, DivId);
- }
- </script>
+         </script>
     </head>
     <body>
         <div>
             <a href="DBAccessServlet">See voting results</a><br/><br/>
         </div>
 
-        <input type="button" value="My votes" id="votebutton" onkeyup="refreshDiv();">
+        <input type="button" value="My votes" id="votebutton" onkeyup="refresh();">
         <div id="myDiv">
 
         </div>

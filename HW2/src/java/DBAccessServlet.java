@@ -156,7 +156,7 @@ public class DBAccessServlet extends HttpServlet {
             
            }
             
-            if (prev_servlet.equals("/index"))
+            if (true)
             {
                request.getRequestDispatcher("Display.jsp").forward(request, response);
             }
@@ -176,11 +176,7 @@ public class DBAccessServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             
-            for(int i = 0; i < genreList.size(); i++)
-            {
-                out.println(genreList.get(i));
-            }
-       
+          
         } catch (Exception e) {
             out.println("error occurred " + e.getMessage());
         } finally {
