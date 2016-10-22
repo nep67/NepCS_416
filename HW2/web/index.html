@@ -52,23 +52,18 @@ and open the template in the editor.
           
  <script type="text/javascript">
     
-
-function ajax_function(url, postData, id)
-{
-xmlhttp=GetXmlHttpObject();
-xmlhttp.open("POST", url, true);
-xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xmlhttp.setRequestHeader("Content-length", postData.length);
-xmlhttp.setRequestHeader("Connection", "close");
-xmlhttp.onreadystatechange=function()
-{
-    if(xmlhttp.readyState==4)
-    {
-          document.getElementById(id).innerHTML=xmlhttp.responseText;                            
-    }       
-}                
-    xmlhttp.send(postData);
- }
+   
+       $(document).ready(function() {      
+           $("#refresh").submit(function() {      
+                var options = {    
+                  target:"#myDiv",
+                  url: "/AjaxContentServlet"  
+                };      
+               $(this).ajaxSubmit(options);      
+               return false;      
+          });      
+      })
+   
 
          </script>
     </head>

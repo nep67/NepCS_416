@@ -73,13 +73,13 @@ public class DBAccessServlet extends HttpServlet {
              ArrayList<Integer> voteList = new ArrayList();
             
              String[] genres  = request.getParameterValues("genre");
-             String genreName = request.getParameter("new_music_type");
-             String voteNum   = request.getParameter("checkboxsubmit");
+             String genreName = request.getParameter("new_music_type");//insert
+             String voteNum   = request.getParameter("checkboxsubmit");//checkbox
              String newtype   = request.getParameter("new_music_type");
              
              String prev_servlet = (String)request.getAttribute("javax.servlet.forward.request_uri");
                if (prev_servlet != null) {
-                // Remove the context.
+                
                 prev_servlet = prev_servlet.substring(request.getContextPath().length());
             }
             
@@ -162,11 +162,35 @@ public class DBAccessServlet extends HttpServlet {
             }
            //********************************************************************************** 
            //UPDATE CHECKBOX VOTES
-           
+           String[] chkdBoxes = request.getParameterValues("checkboxsubmit");    
            if(voteNum != null)
            {
                     
-                   
+                         for(String nField : genres ) {
+                                
+                                for (int i=0; i<genreList.size(); i++) {
+                                    String nType  = genreList.get(i);
+                                    int voteIter = 0;
+                                    
+                                    if (nField.equals(nType)) {
+                                        voteIter = voteList.get(i) + 1;
+                                                                        
+                                        try (PreparedStatement incVotesStatement = connection.prepareStatement(updateDB)) {
+                                            
+                                            incVotesStatement.setInt(1, voteIter);
+                                            incVotesStatement.setString(2, nField);
+                                            int uNum = incVotesStatement.executeUpdate();
+                                            
+                                            incVotesStatement.close();
+                                        }
+                                        catch (Exception e){
+                                            request.setAttribute("exception", "incVotes exception: " + e.getMessage());
+                                            request.getRequestDispatcher("ErrPage.jsp").forward(request, response);
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
                     //request.getRequestDispatcher("Display.jsp").forward(request, response);
           
             
